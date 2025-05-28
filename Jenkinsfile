@@ -2,54 +2,47 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out the repository...'
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Running Build...'
+                echo 'Running build...'
             }
         }
 
-        stage('Test') {
+        stage('Unit Test') {
             steps {
-                echo 'Running Tests...'
+                echo 'Running unit tests...'
             }
         }
 
-        stage('Code Quality') {
+        stage('Integration Test') {
             steps {
-                echo 'Running Code Quality Scan...'
-                writeFile file: 'code-quality.log', text: 'Code Quality: OK'
+                echo 'Running integration tests...'
             }
         }
 
-        stage('Security') {
+        stage('Code Quality Check') {
             steps {
-                echo 'Simulating Security Scan...'
-                writeFile file: 'scan-result.log', text: 'Low: 2\nHigh: 0\nCVE-2023-1001'
+                echo 'Checking code quality...'
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo 'Running security scan...'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Simulating Deployment...'
+                echo 'Deploying the application...'
             }
-        }
-
-        stage('Release') {
-            steps {
-                echo 'Simulating Release Process...'
-            }
-        }
-
-        stage('Monitoring') {
-            steps {
-                echo 'Simulating Monitoring Setup...'
-            }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline Completed.'
         }
     }
 }
